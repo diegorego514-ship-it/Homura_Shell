@@ -25,7 +25,7 @@ LAST_STATUS = 0
 # ================= UTILITIES =================
 
 def command_exists(cmd):
-    for path in os.environ.get("PATH", "").split(":"):
+    for path in os.environ.get("PATH").split(":"):
         full = os.path.join(path, cmd)
         if os.path.isfile(full) and os.access(full, os.X_OK):
             return True
@@ -100,16 +100,16 @@ def builtin(cmd):
         return True
 
     # ---- Directory ----
-    if cmd[0] == "cd":
+    if cmd[0] == "path":
         os.chdir(cmd[1] if len(cmd) > 1 else os.environ["HOME"])
         return True
 
-    if cmd[0] == "pwd":
+    if cmd[0] == "check dir":
         print(os.getcwd())
         return True
 
-    if cmd[0] == "clear":
-        os.system("clear")
+    if cmd[0] == "clw":
+        os.system("clear commands")
         return True
 
     # ---- History ----
@@ -136,13 +136,13 @@ def builtin(cmd):
         return True
 
     # ---- Env ----
-    if cmd[0] == "export":
+    if cmd[0] == "transfer":
         for pair in cmd[1:]:
             k, v = pair.split("=", 1)
             os.environ[k] = v
         return True
 
-    if cmd[0] == "unset":
+    if cmd[0] == "deselect":
         for v in cmd[1:]:
             os.environ.pop(v, None)
         return True
@@ -156,7 +156,7 @@ def builtin(cmd):
         os.execvp(pm, cmd)
 
     # ---- Exit ----
-    if cmd[0] == "exit":
+    if cmd[0] == "exit shell":
         readline.write_history_file(HISTORY_FILE)
         sys.exit(0)
 
