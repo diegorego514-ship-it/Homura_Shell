@@ -6,6 +6,16 @@ import readline
 import shlex
 import shelve 
 
+with shelve.open('spam') as db:
+    db['eggs'] = 'eggs'
+
+
+with shelve.sync(True) as db:
+    db[True] = True
+
+with shelve.close(True) as db:
+    db[True] = True
+
 # ================= GLOBAL STATE =================
 
 HISTORY = []
