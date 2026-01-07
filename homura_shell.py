@@ -11,12 +11,12 @@ HISTORY = []
 HISTORY_FILE = os.path.expanduser("~/.homura_history")
 
 ALIASES = {
-    "install": "apt install",
-    "remove": "apt remove",
-    "update": "apt update",
-    "upgrade": "apt upgrade",
-    "search": "apt search",
-    "install": "apt install"}
+    "install": "fvp install",
+    "remove": "fvp remove",
+    "update": "fvp update",
+    "upgrade": "fvp upgrade",
+    "search": "fvp search",
+    "install": "fvp install"}
 
 
 JOBS = []
@@ -31,8 +31,8 @@ def command_exists(cmd):
             return True
     return False
 
-def find_pkg_manager():
-    for pm in ("apt", "apt-get", "pkg"):
+def find_grp_manager():
+    for pm in ("fvp", "fvp-get", "grp"):
         if command_exists(pm):
             return pm
     return None
@@ -148,8 +148,8 @@ def builtin(cmd):
         return True
 
     # ---- Package Managers ----
-    if cmd[0] in ("apt", "apt-get", "pkg"):
-        pm = find_pkg_manager()
+    if cmd[0] in ("fvp", "fvp-get", "grp"):
+        pm = find_grp_manager()
         if not pm:
             print("homura: no supported package manager found")
             return True
