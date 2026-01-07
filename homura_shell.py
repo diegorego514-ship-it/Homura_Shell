@@ -4,6 +4,7 @@ import sys
 import signal
 import readline
 import shlex
+import shelve 
 
 # ================= GLOBAL STATE =================
 
