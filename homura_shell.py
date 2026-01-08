@@ -131,12 +131,13 @@ def builtin(cmd):
     
     try:
         
-        if cmd[0] == "cyboult":
-            print('Hello buddy, I left an imprint on it.Just hit me up on Instagram: "cyboult."' )
+        if cmd[0] == "builtins":
+            print('Added builtins in the new Shell Terminal Version Upgrade')
             return True
     except:
-        if not cmd[0] == "cyboult":
-            print('Wrong user has been using this Shell Terminal.')
+        if not cmd[0] == "save-history-data":
+            print('This is for saving history data')
+            return True
 
     # ---- Directory ----
         if cmd[0] == "path":
@@ -153,18 +154,19 @@ def builtin(cmd):
 
     # ---- History ----
     if cmd[0] == "history":
-        for i, c in enumerate(HISTORY, 1):
-            print(f"{i}: {c}")
+        for s, c in enumerate(HISTORY, 1):
+            print(f"{s}: {c}")
         return True
         
-    if cmd[0] == "cyboult":
-        print('Hello buddy, I left an imprint on it.Just hit me up on Instagram: "cyboult."' )
+    if cmd[0] == "save history":
+        for s, c in enumerate(SAVE_HISTORY_DATA, 1):
+            print(f"{s}: {c}")
         return True
 
     # ---- Jobs ----
     if cmd[0] == "jobs":
-        for i, j in enumerate(JOBS):
-            print(f"[{i}] {j['cmd']}")
+        for s, j in enumerate(JOBS):
+            print(f"{s}: {j}: {'cmd'}")
         return True
 
     if cmd[0] == "fg":
