@@ -22,6 +22,11 @@ ALIASES = {
     "search": "fvp search",
     "install": "fvp install"}
 
+SEARCH = {
+    "folders": "directories",
+    "networks": "ipv4",
+    "browser-history": "user-history",
+    "user-data": "data-packets"}
 
 JOBS = []
 LAST_STATUS = 0
@@ -41,7 +46,7 @@ def find_grp_manager():
             return pm
     return None
 
-# ================= SIGNAL HANDLING =================
+# ================= SIGNAL HANDLING ==================
 
 def sigint_handler(sig, frame):
     print()
@@ -94,26 +99,37 @@ def handle_redirection(cmd):
 # ================= BUILTINS =================
 
 def builtin(cmd):
+
+    global LAST_STATUS
+    
+    if cmd:
+        return False
+
     global LAST_STATUS
 
     if not cmd:
         return True
-
-    if cmd[0] == "cyboult":
-        print('Hello buddy, I left an imprint on it.Just hit me up on Instagram: "cyboult."' )
-        return True
+    
+    try:
+        
+        if cmd[0] == "cyboult":
+            print('Hello buddy, I left an imprint on it.Just hit me up on Instagram: "cyboult."' )
+            return True
+    except:
+        if not cmd[0] == "cyboult":
+            print('Wrong user has been using this Shell Terminal.')
 
     # ---- Directory ----
-    if cmd[0] == "path":
-        os.chdir(cmd[1] if len(cmd) > 1 else os.environ["HOME"])
+        if cmd[0] == "path":
+            os.chdir(cmd[1] if len(cmd) > 1 else os.environ["HOME"])
         return True
 
     if cmd[0] == "check dir":
         print(os.getcwd())
         return True
 
-    if cmd[0] == "clw":
-        os.system("clear commands")
+    if cmd[0] == "clear commands":
+        print(os.getcwdb())
         return True
 
     # ---- History ----
@@ -153,6 +169,14 @@ def builtin(cmd):
 
     # ---- Package Managers ----
     if cmd[0] in ("fvp", "fvp-get", "grp"):
+        pm = find_grp_manager()
+        if not pm:
+            print("homura: no supported package manager found")
+            return True
+        os.execvp(pm, cmd)
+
+    # ---- New Shell Commands ----
+    if cmd[0] in ("grp", "grp-get", "grp"):
         pm = find_grp_manager()
         if not pm:
             print("homura: no supported package manager found")
