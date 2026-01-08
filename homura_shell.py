@@ -14,6 +14,9 @@ with shelve.open('spam') as db:
 HISTORY = []
 HISTORY_FILE = os.path.expanduser("~/.homura_history")
 
+HISTORY = []
+HISTORY_FILE = os.path.expanduser('~/.homura_search_history')
+
 ALIASES = {
     "install": "fvp install",
     "remove": "fvp remove",
@@ -27,6 +30,15 @@ SEARCH = {
     "networks": "ipv4",
     "browser-history": "user-history",
     "user-data": "data-packets"}
+
+SAVE_HISTORY_DATA = {
+    "folders": "directories",
+    "networks": "ipv4",
+    "browser-history": "user-history",
+    "user-data": "data-packets",
+    "user-browsing": "user-system-data",
+    "user-system-info": "user-credentials",
+    "user-system-passwords": "user-important-data"}
 
 JOBS = []
 LAST_STATUS = 0
