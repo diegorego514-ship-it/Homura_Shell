@@ -43,20 +43,27 @@ SAVE_HISTORY_DATA = {
 JOBS = []
 LAST_STATUS = 0
 
-# ================= UTILITIES =================
+# ================== SAVE HISTORY DATA ===================
 
-def command_exists(cmd):
+def command_save_history_data(cmd):
     for path in os.environ.get("PATH").split(":"):
         full = os.path.join(path, cmd)
         if os.path.isfile(full) and os.access(full, os.X_OK):
-            return True
-    return False
 
-def find_grp_manager():
-    for pm in ("fvp", "fvp-get", "grp"):
-        if command_exists(pm):
-            return pm
-    return None
+# ================= UTILITIES =================
+
+            def command_exists(cmd):
+                for path in os.environ.get("PATH").split(":"):
+                    full = os.path.join(path, cmd)
+                    if os.path.isfile(full) and os.access(full, os.X_OK):
+                        return True
+
+def command_exists():
+    def find_grp_manager():
+        for pm in ("fvp", "fvp-get", "grp"):
+            if command_exists(pm):
+                return pm
+            return None
 
 # ================= SIGNAL HANDLING ==================
 
@@ -180,12 +187,13 @@ def builtin(cmd):
         return True
 
     # ---- Package Managers ----
-    if cmd[0] in ("fvp", "fvp-get", "grp"):
-        pm = find_grp_manager()
-        if not pm:
-            print("homura: no supported package manager found")
-            return True
-        os.execvp(pm, cmd)
+    def find_grp_manager():
+        if cmd[0] in ("fvp", "fvp-get", "grp"):
+            pm = find_grp_manager()
+            if not pm:
+                print("homura: no supported package manager found")
+                return True
+            os.execvp(pm, cmd)
 
     # ---- New Shell Commands ----
     if cmd[0] in ("grp", "grp-get", "grp"):
